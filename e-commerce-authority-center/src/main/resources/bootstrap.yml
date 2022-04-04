@@ -1,0 +1,36 @@
+server:
+  port: 7000
+  servlet:
+    context-path: /ecommerce-authority-center
+
+spring:
+  application:
+    name: e-commerce-authority-center
+  cloud:
+    nacos:
+      # 服务发现
+      discovery:
+        enabled: true
+        server-addr: 127.0.0.1:8848
+        namespace:
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
+
+      # 配置管理
+      config:
+        prefix: immoc-e-commerce
+        file-extension: yaml #配置内容的格式
+        enabled: true # 如果不想使用nacos进行配置管理，设置为false即可
+        group: DEFAULT_GROUP
+        namespace:
+        server-addr: 127.0.0.1:8848
+  datasource:
+    # 数据源
+    url: jdbc:mysql://127.0.0.1:3306/commerce?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml

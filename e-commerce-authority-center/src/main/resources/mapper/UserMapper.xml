@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.immoc.ecommerce.authority.mapper.EcommerceUserMapper">
+  <resultMap id="BaseResultMap" type="com.immoc.ecommerce.authority.entity.EcommerceUser">
+    <id column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="username" property="username" />
+    <result column="password" property="password" />
+  </resultMap>
+
+
+  <select id="findByUsername" resultMap="BaseResultMap">
+    select `id`, `username`, `password` from t_ecommerce_user where username = #{username}
+  </select>
+
+  <update id="updatePassword">
+    update t_ecommerce_user set password = #{newPassWord} where username = #{username}
+  </update>
+
+  <insert id="save">
+    insert into t_ecommerce_user (`id`,`username`,`password`,`salt`)
+    values (#{ecommerceUser.id}, #{ecommerceUser.username},#{ecommerceUser.password},#{ecommerceUser.salt});
+  </insert>
+
+  <select id="findByUsernameAndPassword" resultMap="BaseResultMap">
+    select `id`, `username`, `password` from t_ecommerce_user where username = #{username} AND password = #{password}
+  </select>
+
+
+</mapper>
